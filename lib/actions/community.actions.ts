@@ -32,7 +32,7 @@ export async function createCommunity(
       username,
       image,
       bio,
-      createdBy: user._id, // Use the mongoose ID of the user
+      createdBy: id, // Use the mongoose ID of the user
     });
 
     const createdCommunity = await newCommunity.save();
@@ -54,7 +54,7 @@ export async function fetchCommunityDetails(id: string) {
     connectToDB();
 
     const communityDetails = await Community.findOne({ id }).populate([
-      "createdBy",
+      'createdBy',
       {
         path: "members",
         model: User,
@@ -181,7 +181,7 @@ export async function addMemberToCommunity(
     }
 
     // Check if the user is already a member of the community
-    if (community.members.includes(user._id)) {
+    if (community.members.includes(id)) {
       throw new Error("User is already a member of the community");
     }
 

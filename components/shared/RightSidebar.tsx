@@ -7,7 +7,7 @@ import { fetchUsers } from "@/lib/actions/user.actions";
 
 async function RightSidebar() {
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect("/");
 
   const similarMinds = await fetchUsers({
     userId: user.id,

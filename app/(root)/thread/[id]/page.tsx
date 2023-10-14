@@ -13,7 +13,7 @@ async function page({ params }: { params: { id: string } }) {
   if (!params.id) return null;
 
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
@@ -21,7 +21,7 @@ async function page({ params }: { params: { id: string } }) {
   const thread = await fetchThreadById(params.id);
 
   return (
-    <section className='relative'>
+    <section className="relative">
       <div>
         <ThreadCard
           id={thread._id}
@@ -35,7 +35,7 @@ async function page({ params }: { params: { id: string } }) {
         />
       </div>
 
-      <div className='mt-7'>
+      <div className="mt-7">
         <Comment
           threadId={params.id}
           currentUserImg={user.imageUrl}
@@ -43,7 +43,7 @@ async function page({ params }: { params: { id: string } }) {
         />
       </div>
 
-      <div className='mt-10'>
+      <div className="mt-10">
         {thread.children.map((childItem: any) => (
           <ThreadCard
             key={childItem._id}
